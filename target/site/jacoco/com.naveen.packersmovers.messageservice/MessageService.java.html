@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MessageService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">customer</a> &gt; <a href="index.source.html" class="el_package">com.naveen.packersmovers.messageservice</a> &gt; <span class="el_source">MessageService.java</span></div><h1>MessageService.java</h1><pre class="source lang-java linenums">package com.naveen.packersmovers.messageservice;
+
+
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.services.sns.model.MessageAttributeValue;
+import com.amazonaws.services.sns.model.PublishRequest;
+import com.amazonaws.services.sns.model.PublishResult;
+import com.naveen.packersmovers.model.Customer;
+
+
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="nc" id="L18">public class MessageService {</span>
+    public static final String AWS_ACCESS_KEY_ID = &quot;aws.accessKeyId&quot;;
+    public static final String AWS_SECRET_KEY = &quot;aws.secretKey&quot;;
+
+    static {
+<span class="nc" id="L23">        System.setProperty(AWS_ACCESS_KEY_ID, &quot;AKIA2HTW6RQU6RZE3BWG&quot;);</span>
+<span class="nc" id="L24">        System.setProperty(AWS_SECRET_KEY, &quot;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&quot;);</span>
+
+<span class="nc" id="L26">    }</span>
+    
+    
+    public String sendMessage(Customer user){
+<span class="nc" id="L30">        MessageService myClient =new MessageService();</span>
+<span class="nc" id="L31">        String message = &quot;Name: &quot; + user.getfullName() + &quot; &quot; + &quot;\n&quot; + </span>
+<span class="nc" id="L32">        				 &quot;Email:&quot; + user.getEmail() + &quot; &quot; + &quot;\n&quot; +</span>
+<span class="nc" id="L33">        				 &quot;Cell Number:&quot; + user.getPhone() + &quot; &quot; + &quot;\n&quot; +</span>
+<span class="nc" id="L34">        				 &quot;From:&quot; + user.getfromAddress() + &quot; &quot; + &quot;\n&quot; +</span>
+<span class="nc" id="L35">        				 &quot;To:&quot; + user.gettoAddress() + &quot; &quot; + &quot;\n&quot; +</span>
+<span class="nc" id="L36">        				 &quot;Est. Date&quot; + user.getestDate() + &quot; &quot; + &quot;\n&quot; +</span>
+<span class="nc" id="L37">        				 &quot;Move Type:&quot; + user.getmoveSize() + &quot; &quot; + &quot;\n&quot; ;</span>
+        				 
+        
+        
+<span class="nc" id="L41">        myClient.sendCustomerDetails(message);</span>
+<span class="nc" id="L42">        return null;</span>
+		
+    }
+    
+    public void sendCustomerDetails(String message) {
+<span class="nc" id="L47">        AmazonSNS snsClient = AmazonSNSClient.builder().withRegion(Regions.AP_SOUTH_1).build();</span>
+<span class="nc" id="L48">        Map&lt;String, MessageAttributeValue&gt; smsAttributes = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L49">        smsAttributes.put(&quot;AWS.SNS.SMS.SenderID&quot;, new MessageAttributeValue().withStringValue(&quot;sms-topic&quot;).withDataType(&quot;String&quot;));</span>
+<span class="nc" id="L50">        smsAttributes.put(&quot;AWS.SNS.SMS.SMSType&quot;, new MessageAttributeValue().withStringValue(&quot;Transactional&quot;).withDataType(&quot;String&quot;));</span>
+
+<span class="nc" id="L52">        PublishResult result = snsClient.publish(new PublishRequest()</span>
+<span class="nc" id="L53">        						.withTopicArn(&quot;arn:aws:sns:ap-south-1:703550360617:Demo&quot;)</span>
+<span class="nc" id="L54">                				.withMessage(message)</span>
+<span class="nc" id="L55">                				.withMessageAttributes(smsAttributes));</span>
+<span class="nc" id="L56">        System.out.println(&quot;Message sent successfully--&quot; + result.getMessageId());</span>
+<span class="nc" id="L57">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

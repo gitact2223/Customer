@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+customer,com.naveen.packersmovers.model,Customer,59,0,0,0,25,0,17,0,17,0
+customer,com.naveen.packersmovers.controller,PackersMoversController,12,0,0,0,4,0,3,0,3,0
+customer,com.naveen.packersmovers.messageservice,MessageService,120,0,0,0,24,0,4,0,4,0
+customer,com.naveen.packersmovers,PackersMoversApplication,8,0,0,0,3,0,2,0,2,0
+customer,com.naveen.packersmovers.service,PackersMoversServiceImplementation,13,0,0,0,3,0,3,0,3,0
